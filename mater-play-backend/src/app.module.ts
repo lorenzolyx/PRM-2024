@@ -1,6 +1,9 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Movie } from './entities/movie-entity';
+import { MovieService } from './services/movie-services';
+import { MovieController } from './controllers/movie-controller';
 
 @Module({
   imports: [
@@ -10,13 +13,16 @@ import { ConfigModule } from '@nestjs/config';
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.DB_HOST,
-      port: +process.env.DB_PORT,
+      port: Number(process.env.DB_PORT),
+      database: process.env.DB_NAME,
       username: process.env.DB_USER,
       password: process.env.DB_PASS,
-      database: process.env.DB_NAME,
-      entities: [],
+      entities: [Movie],
       synchronize: true,
     }),
+    TypeOrmModule.forFeature([Movie]),
   ],
+  controllers: [MovieController],
+  providers: [MovieService],
 })
 export class AppModule {}
