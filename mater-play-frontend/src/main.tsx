@@ -22,6 +22,9 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
+      <BrowserRouter>
+      
+      </BrowserRouter>
       <App />
     </ThemeProvider>
   </StrictMode>

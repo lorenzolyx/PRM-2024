@@ -1,6 +1,15 @@
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 function HighLightSection() {
+
+  const params = useParams();
+
+  useEffect(() => {
+    console.log(params)
+  }, [])
+
   return (
     <Box>
       <Container>

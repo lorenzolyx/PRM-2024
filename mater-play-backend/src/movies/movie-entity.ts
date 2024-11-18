@@ -1,3 +1,4 @@
+import { Category } from 'src/categories/category-entity';
 import {
   Column,
   Entity,
@@ -5,7 +6,6 @@ import {
   ManyToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Category } from './category-entity';
 
 @Entity('movie')
 export class Movie {
