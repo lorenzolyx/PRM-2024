@@ -1,14 +1,27 @@
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { MovieService } from "../../../services/movie-service";
+import { IMovie } from "../../@libs/types";
 
 function HighLightSection() {
 
   const params = useParams();
 
+  const [movie, setMovies] = useState<IMovie>({} as IMovie);
+
   useEffect(() => {
-    console.log(params)
-  }, [])
+    if(params.id) {
+      MovieService.getMoviesById(params.id);
+      .then(result =>{
+
+        if
+      }))
+    }
+    .catch(error => {
+      console.log('Pau:', error);
+    })
+  }, []);
 
   return (
     <Box>
