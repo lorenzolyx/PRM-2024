@@ -8,6 +8,9 @@ import { Genre } from 'src/genres/genre-entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Category, Genre, Movie])],
+  
+  TypeOrmModule.forFeature([Category, Genre, Movie]),
+
   providers: [MovieService],
   controllers: [MovieController],
 })

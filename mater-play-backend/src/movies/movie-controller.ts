@@ -1,3 +1,4 @@
+import { FileInterceptor } from '@nestjs/platform-express';
 import {
   Body,
   Controller,
@@ -11,14 +12,20 @@ import {
   Post,
   Put,
   Query,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
+import { SupabaseService } from 'src/@libs/supabase/supabase.service';
 import { Category } from 'src/categories/category-entity';
 import { Movie } from 'src/movies/movie-entity';
 import { MovieService } from 'src/movies/movie-service';
 
 @Controller('movies')
 export class MovieController {
-  constructor(private service: MovieService) {}
+  constructor() 
+  private readonly service: MovieService,
+  private readonly supabaseService: SupabaseService
+  {}
 
   @Get()
   findAll(@Query('categoryId') categoryId?: string): Promise<Movie[]> {
@@ -72,5 +79,11 @@ export class MovieController {
     }
 
     return this.service.remove(id);
+  }
+
+  @Post('upload')
+  @UseInterceptors(FileInterceptor('file'))
+  UploadFile(@UploadedFile() file: Express.Multer.File) {
+
   }
 }
