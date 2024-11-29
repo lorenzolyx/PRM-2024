@@ -19,7 +19,7 @@ export function CategoryForm({
 
   const navigate = useNavigate();
 
-  //State - Loading
+
   const [loading, setLoading] = useState(false);
 
   const handleDelete = () => {

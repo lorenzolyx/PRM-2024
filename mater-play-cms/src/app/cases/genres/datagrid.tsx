@@ -9,7 +9,7 @@ import { GenreService } from "../../../services/genre.service";
 
 import ActionsMenu from "../../components/ui/action-menu";
 
-//Definições das colunas
+
 const columns: GridColDef[] = [
   { 
     field: 'id', 

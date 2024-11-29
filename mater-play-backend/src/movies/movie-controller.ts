@@ -1,4 +1,3 @@
-import { FileInterceptor } from '@nestjs/platform-express';
 import {
   Body,
   Controller,
@@ -19,13 +18,14 @@ import { SupabaseService } from 'src/@libs/supabase/supabase.service';
 import { Category } from 'src/categories/category-entity';
 import { Movie } from 'src/movies/movie-entity';
 import { MovieService } from 'src/movies/movie-service';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('movies')
 export class MovieController {
-  constructor() 
-  private readonly service: MovieService,
-  private readonly supabaseService: SupabaseService
-  {}
+  constructor(
+    private readonly service: MovieService,
+    private readonly supabaseService: SupabaseService,
+  ) {}
 
   @Get()
   findAll(@Query('categoryId') categoryId?: string): Promise<Movie[]> {
@@ -83,7 +83,20 @@ export class MovieController {
 
   @Post('upload')
   @UseInterceptors(FileInterceptor('file'))
-  UploadFile(@UploadedFile() file: Express.Multer.File) {
+  async uploadFile(@UploadedFile() file: Express.Multer.File) {
+    if (!file) {
+      throw new HttpException('File not found', HttpStatus.BAD_REQUEST);
+    }
 
+    const result = await this.supabaseService.upload(file);
+
+    if (!result) {
+      throw new HttpException(
+        'Unable to upload file',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+
+    return result;
   }
 }

@@ -9,7 +9,6 @@ import { CategoryService } from "../../../services/category.service";
 import { toast } from "react-toastify";
 import ActionsMenu from "../../components/ui/action-menu";
 
-//Definições das colunas
 const columns: GridColDef[] = [
   { 
     field: 'id', 
